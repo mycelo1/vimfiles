@@ -4,6 +4,8 @@
 call plug#begin()
   Plug 'bling/vim-airline'
   Plug 'tommcdo/vim-lion'
+  Plug 'vim-scripts/plsql.vim--Lysyonok'
+  Plug 'rust-lang/rust.vim'
 call plug#end()
 
 behave mswin
