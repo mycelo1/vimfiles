@@ -8,15 +8,11 @@ call plug#begin()
   Plug 'rust-lang/rust.vim'
 call plug#end()
 
-behave mswin
-colors desert
 filetype plugin indent on
 syntax on
 au CursorHoldI * stopinsert
 
 inoremap <F9> <C-R>=expand("%:p")<CR>
-nnoremap <A-F7> :set fileencoding=latin1<Bar>:set encoding=latin1<Bar><CR>
-nnoremap <A-F8> :set fileencoding=utf-8<Bar>:set encoding=utf-8<Bar><CR>
 nnoremap <C-F4> :bd<Bar><CR>
 nnoremap <C-PageDown> :bn<Bar><CR>
 nnoremap <C-PageUp> :bp<Bar><CR>
@@ -24,6 +20,8 @@ nnoremap <F2> :set shiftwidth=2<Bar>:set softtabstop=2<Bar><CR>
 nnoremap <F3> :set shiftwidth=3<Bar>:set softtabstop=3<Bar><CR>
 nnoremap <F4> :set shiftwidth=4<Bar>:set softtabstop=4<Bar><CR>
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <F7> :set fileencoding=latin1<Bar>:set encoding=latin1<Bar><CR>
+nnoremap <F8> :set fileencoding=utf-8<Bar>:set encoding=utf-8<Bar><CR>
 nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <Leader>s :sav <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap K i<CR><Esc>
@@ -41,9 +39,11 @@ inoremap <PageUp>   <NOP>
 inoremap <Right>    <NOP>
 inoremap <Up>       <NOP>
 
-vnoremap <S-Del>    "+x
-vnoremap <C-Insert> "+y
-nnoremap <S-Insert> "+gP
+cmap     <S-Insert>   <C-R>+
+nnoremap <C-S-Insert> "+gp
+nnoremap <S-Insert>   "+gP
+vnoremap <C-Insert>   "+y
+vnoremap <S-Del>      "+x
 
 let g:airline#extensions#tabline#enabled = 21
 let g:airline#extensions#tabline#show_buffers = 1
@@ -55,14 +55,12 @@ set autoindent
 set breakindent
 set backspace=start
 set belloff=all
-set cursorline
 set expandtab
 set hidden
 set hlsearch
 set ignorecase
 set laststatus=2
 set linebreak
-set lines=40 columns=120
 set list
 set listchars=tab:»\ ,nbsp:·,trail:·
 set nocompatible
@@ -74,12 +72,19 @@ set shiftwidth=2
 set smartcase
 set softtabstop=2
 set textwidth=0
-set ve=all
+set virtualedit=all
 set wrapmargin=0
 
-if has('win32')
-  set guifont=Consolas:h11
-elseif has('unix')
-  set guifont=Ubuntu\ Mono\ 11
+if has("gui_running")
+  if has('win32')
+    set guifont=DejaVu\ Sans\ Mono:h10
+  elseif has('unix')
+    set guifont=DejaVu\ Sans\ Mono\ 10
+  endif
+  behave xterm
+  colors desert
+  set lines=40 columns=120
+  set cursorline
+else
+  colors ron
 endif
-
