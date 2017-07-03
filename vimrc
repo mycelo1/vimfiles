@@ -55,7 +55,6 @@ set backspace=start
 set belloff=all
 set cursorline
 set expandtab
-set guifont=Consolas:h11
 set hidden
 set hlsearch
 set ignorecase
@@ -63,7 +62,7 @@ set laststatus=2
 set linebreak
 set lines=40 columns=120
 set list
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set listchars=tab:»\ ,nbsp:·,trail:·
 set nocompatible
 set nowrap
 set number
@@ -75,3 +74,10 @@ set softtabstop=2
 set textwidth=0
 set ve=all
 set wrapmargin=0
+
+if has('win32')
+  set guifont=Consolas:h11
+elseif has('unix')
+  set guifont=Ubuntu\ Mono\ 11
+endif
+
