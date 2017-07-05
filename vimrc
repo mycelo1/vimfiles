@@ -2,26 +2,20 @@
 "curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 call plug#begin()
-  Plug 'bling/vim-airline'
   Plug 'tommcdo/vim-lion'
-  Plug 'vim-scripts/plsql.vim--Lysyonok'
   Plug 'rust-lang/rust.vim'
 call plug#end()
 
+set nocompatible
 filetype plugin indent on
 syntax on
 au CursorHoldI * stopinsert
 
-let g:airline#extensions#tabline#enabled = 21
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#buffer_min_count = 2
-autocmd BufDelete * call airline#extensions#tabline#buflist#invalidate()
-
 set autoindent
 set breakindent
-set backspace=start
+set backspace=
 set belloff=all
+set completeopt=
 set expandtab
 set hidden
 set hlsearch
@@ -30,14 +24,17 @@ set laststatus=2
 set linebreak
 set list
 set listchars=tab:»\ ,nbsp:·,trail:·
-set nocompatible
 set nowrap
+set nrformats=alpha,hex
 set number
 set relativenumber
 set scrolloff=2
 set shiftwidth=2
 set smartcase
+set smartindent
+set smarttab
 set softtabstop=2
+set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
 set textwidth=0
 set virtualedit=all
 set wrapmargin=0
@@ -56,17 +53,32 @@ else
   colors ron
 endif
 
-inoremap <F9>             <C-R>=expand("%:p")<CR>
+function! SelectIndent ()
+  let v_indent=indent(line("."))
+  while (indent(line(".")-1) >= v_indent) || (prevnonblank(line(".")-1) < (line(".")-1))
+    exe "normal k"
+  endwhile
+  exe "normal V"
+  while (indent(line(".")+1) >= v_indent) || (nextnonblank(line(".")+1) > (line(".")+1))
+    exe "normal j"
+  endwhile
+endfun
+
+nnoremap <A-F2>           :set shiftwidth-=1<Bar>:set softtabstop-=1<Bar>:set softtabstop?<CR>
+nnoremap <A-F3>           :set shiftwidth+=1<Bar>:set softtabstop+=1<Bar>:set softtabstop?<CR>
+nnoremap <A-F7>           :set fileencoding=latin1<Bar>:set encoding=latin1<CR>
+nnoremap <A-F8>           :set fileencoding=utf-8<Bar>:set encoding=utf-8<CR>
 nnoremap <C-F4>           :bd<Bar><CR>
+nnoremap <C-F5>           :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <C-F6>           mzyyp`zj<C-A>
+nnoremap <C-F7>           :call SelectIndent()<CR>
+inoremap <C-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-PageDown>     :bn<Bar><CR>
 nnoremap <C-PageUp>       :bp<Bar><CR>
-nnoremap <F2>             :set shiftwidth=2<Bar>:set softtabstop=2<Bar><CR>
-nnoremap <F3>             :set shiftwidth=3<Bar>:set softtabstop=3<Bar><CR>
-nnoremap <F4>             :set shiftwidth=4<Bar>:set softtabstop=4<Bar><CR>
-nnoremap <F5>             :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-nnoremap <F7>             :set fileencoding=latin1<Bar>:set encoding=latin1<Bar><CR>
-nnoremap <F8>             :set fileencoding=utf-8<Bar>:set encoding=utf-8<Bar><CR>
+nnoremap <Leader><CR>     :noh<CR>
 nnoremap <Leader>e        :e <C-R>=expand('%:p:h') . '/'<CR>
+nnoremap <Leader>c        :e <C-R>=expand('<cword>')<CR>
+nnoremap <Leader>n        :enew<CR>
 nnoremap <Leader>s        :sav <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap K                i<CR><Esc>
 
@@ -84,67 +96,4 @@ inoremap <PageDown>       <NOP>
 inoremap <PageUp>         <NOP>
 inoremap <Right>          <NOP>
 inoremap <Up>             <NOP>
-
-inoremap <A-Down>         <NOP>
-inoremap <A-End>          <NOP>
-inoremap <A-Home>         <NOP>
-inoremap <A-Left>         <NOP>
-inoremap <A-PageDown>     <NOP>
-inoremap <A-PageUp>       <NOP>
-inoremap <A-Right>        <NOP>
-inoremap <A-Up>           <NOP>
-
-inoremap <A-S-Down>       <NOP>
-inoremap <A-S-End>        <NOP>
-inoremap <A-S-Home>       <NOP>
-inoremap <A-S-Left>       <NOP>
-inoremap <A-S-PageDown>   <NOP>
-inoremap <A-S-PageUp>     <NOP>
-inoremap <A-S-Right>      <NOP>
-inoremap <A-S-Up>         <NOP>
-
-inoremap <C-Down>         <NOP>
-inoremap <C-End>          <NOP>
-inoremap <C-Home>         <NOP>
-inoremap <C-Left>         <NOP>
-inoremap <C-PageDown>     <NOP>
-inoremap <C-PageUp>       <NOP>
-inoremap <C-Right>        <NOP>
-inoremap <C-Up>           <NOP>
-
-inoremap <C-S-Down>       <NOP>
-inoremap <C-S-End>        <NOP>
-inoremap <C-S-Home>       <NOP>
-inoremap <C-S-Left>       <NOP>
-inoremap <C-S-PageDown>   <NOP>
-inoremap <C-S-PageUp>     <NOP>
-inoremap <C-S-Right>      <NOP>
-inoremap <C-S-Up>         <NOP>
-
-inoremap <C-A-Down>       <NOP>
-inoremap <C-A-End>        <NOP>
-inoremap <C-A-Home>       <NOP>
-inoremap <C-A-Left>       <NOP>
-inoremap <C-A-PageDown>   <NOP>
-inoremap <C-A-PageUp>     <NOP>
-inoremap <C-A-Right>      <NOP>
-inoremap <C-A-Up>         <NOP>
-
-inoremap <C-S-A-Down>     <NOP>
-inoremap <C-S-A-End>      <NOP>
-inoremap <C-S-A-Home>     <NOP>
-inoremap <C-S-A-Left>     <NOP>
-inoremap <C-S-A-PageDown> <NOP>
-inoremap <C-S-A-PageUp>   <NOP>
-inoremap <C-S-A-Right>    <NOP>
-inoremap <C-S-A-Up>       <NOP>
-
-inoremap <S-Down>         <NOP>
-inoremap <S-End>          <NOP>
-inoremap <S-Home>         <NOP>
-inoremap <S-Left>         <NOP>
-inoremap <S-PageDown>     <NOP>
-inoremap <S-PageUp>       <NOP>
-inoremap <S-Right>        <NOP>
-inoremap <S-Up>           <NOP>
 
