@@ -29,6 +29,7 @@ set number
 set relativenumber
 set scrolloff=2
 set shiftwidth=2
+set shortmess+=A
 set smartcase
 set smartindent
 set smarttab
@@ -37,6 +38,12 @@ set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\"
 set textwidth=0
 set virtualedit=all
 set wrapmargin=0
+
+if has('win32')
+  set directory=%TEMP%//
+elseif has('unix')
+  set directory=%TMPDIR%//
+endif
 
 if has("gui_running")
   if has('win32')
@@ -95,6 +102,7 @@ nnoremap <Leader>n        :enew<CR>
 nnoremap <Leader>s        :sav <C-R>=expand('%:p:h') . '/'<CR>
 
 cnoremap %%               <C-R>=expand('%:h') . '/'<CR>
+cnoremap $$               <C-R>=expand('%:t')<CR>
 nnoremap K                i<CR><Esc>
 nnoremap <M-k>            :help <C-R>=expand('<cword>')<CR><CR>
 vnoremap $                g_
