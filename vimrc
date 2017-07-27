@@ -1,11 +1,3 @@
-"(New-Object Net.WebClient).DownloadFile("https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim", $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("~\vimfiles\autoload\plug.vim"))
-"curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-call plug#begin()
-  Plug 'tommcdo/vim-lion'
-  Plug 'rust-lang/rust.vim'
-call plug#end()
-
 set nocompatible
 filetype plugin indent on
 syntax on
@@ -23,6 +15,7 @@ set laststatus=2
 set linebreak
 set list
 set listchars=tab:»\ ,nbsp:·,trail:·
+set mouse=c
 set nowrap
 set nrformats=alpha,hex
 set number
@@ -95,11 +88,12 @@ nnoremap <C-F10>          :let @z=@"<Bar>let @"=@+<Bar>let @+=@z<CR>
 nnoremap <C-PageDown>     :bn<Bar><CR>
 nnoremap <C-PageUp>       :bp<Bar><CR>
 
-nnoremap <Leader><CR>     :noh<CR>
+nnoremap <Leader><CR>     :nohlsearch<CR>
 nnoremap <Leader>e        :e <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <Leader>w        :e <C-R>=expand('%:p:h') . '/' . expand('<cword>')<CR>
 nnoremap <Leader>n        :enew<CR>
 nnoremap <Leader>s        :sav <C-R>=expand('%:p:h') . '/'<CR>
+nnoremap <Leader>r        :%s/\<<C-R>=expand('<cword>')<CR>\>//g<Left><Left>
 
 cnoremap %%               <C-R>=expand('%:h') . '/'<CR>
 cnoremap $$               <C-R>=expand('%:t')<CR>
