@@ -35,7 +35,7 @@ set wrapmargin=0
 if has('win32')
   set directory=%TEMP%//
 elseif has('unix')
-  set directory=%TMPDIR%//
+  set directory=/tmp//
 endif
 
 if has("gui_running")
