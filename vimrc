@@ -128,3 +128,7 @@ imap <S-Down>             <NOP>
 imap <S-PageUp>           <NOP>
 imap <S-PageDown>         <NOP>
 
+silent! call repeat#set("\<Plug>LionRight", v:count)
+silent! call repeat#set("\<Plug>VLionRight", v:count)
+silent! call repeat#set("\<Plug>LionLeft", v:count)
+silent! call repeat#set("\<Plug>VLionLeft", v:count)
