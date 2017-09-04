@@ -8,6 +8,7 @@ set backspace=
 set belloff=all
 set completeopt=
 set expandtab
+set guioptions-=T
 set hidden
 set hlsearch
 set ignorecase
@@ -52,7 +53,7 @@ if has("gui_running")
   autocmd InsertEnter * highlight CursorLine gui=underline guibg=gray20
   autocmd InsertLeave * highlight CursorLine gui=NONE guibg=gray30
 else
-  colors ron
+  colors blue
   set nocursorline
   autocmd InsertEnter * set cursorline
   autocmd InsertLeave * set nocursorline
@@ -78,7 +79,7 @@ nnoremap <A-F7>           :set fileencoding=latin1<Bar>:set encoding=latin1<CR>
 nnoremap <A-F8>           :set fileencoding=utf-8<Bar>:set encoding=utf-8<CR>
 
 nnoremap <C-F4>           :bd<Bar><CR>
-nnoremap <C-F5>           :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <C-F5>           :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar><CR>
 nnoremap <C-F6>           mzyyp`zj<C-A>
 nnoremap <C-F7>           :call SelectIndent()<CR>
 inoremap <C-F9>           <C-R>=expand("%:p")<CR>
