@@ -9,6 +9,8 @@ set belloff=all
 set completeopt=
 set expandtab
 set guioptions-=T
+set guioptions-=m
+set guioptions+=b
 set hidden
 set hlsearch
 set ignorecase
@@ -84,10 +86,14 @@ nnoremap <C-F6>           mzyyp`zj<C-A>
 nnoremap <C-F7>           :call SelectIndent()<CR>
 inoremap <C-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-F9>           "=expand('%:p')<C-M>p
+nnoremap <C-S-F9>         :let @+=expand("%:p")<CR>
 nnoremap <C-F10>          :let @z=@"<Bar>let @"=@+<Bar>let @+=@z<CR>
+nnoremap <C-S-F10>        :let @"=@0<CR>
 
 nnoremap <C-PageDown>     :bn<Bar><CR>
 nnoremap <C-PageUp>       :bp<Bar><CR>
+nnoremap <TAB>            W
+nnoremap <S-TAB>          B
 
 nnoremap <Leader><CR>     :nohlsearch<CR>
 nnoremap <Leader>e        :e <C-R>=expand('%:p:h') . '/'<CR>
