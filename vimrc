@@ -106,6 +106,7 @@ cnoremap %%               <C-R>=expand('%:h') . '/'<CR>
 cnoremap $$               <C-R>=expand('%:t')<CR>
 nnoremap K                i<CR><Esc>
 nnoremap <M-k>            :help <C-R>=expand('<cword>')<CR><CR>
+nnoremap <M-i>            i<Space><Esc>
 vnoremap $                g_
 
 cmap     <S-Insert>       <C-R>+
