@@ -3,14 +3,15 @@ filetype plugin indent on
 syntax on
 
 set autoindent
-set breakindent
 set backspace=
 set belloff=all
+set breakindent
 set completeopt=
+set cpoptions+=n
 set expandtab
+set guioptions+=b
 set guioptions-=T
 set guioptions-=m
-set guioptions+=b
 set hidden
 set hlsearch
 set ignorecase
@@ -19,13 +20,13 @@ set linebreak
 set list
 set listchars=tab:»\ ,nbsp:·,trail:·
 set mouse=c
-set nowrap
 set nrformats=alpha,hex
 set number
 set relativenumber
 set scrolloff=2
 set shiftwidth=2
 set shortmess+=A
+set showbreak=»»
 set smartcase
 set smartindent
 set smarttab
@@ -33,7 +34,7 @@ set softtabstop=2
 set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
 set textwidth=0
 set virtualedit=all
-set wrapmargin=0
+set wrap
 
 if has('win32')
   set directory=%TEMP%//
@@ -80,10 +81,11 @@ nnoremap <A-F5>           :if exists("g:syntax_on")<Bar>syntax off<Bar>else<Bar>
 nnoremap <A-F7>           :set fileencoding=latin1<Bar>:set encoding=latin1<CR>
 nnoremap <A-F8>           :set fileencoding=utf-8<Bar>:set encoding=utf-8<CR>
 
-nnoremap <C-F4>           :bd<Bar><CR>
+nnoremap <C-F4>           :bd<CR>
 nnoremap <C-F5>           :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar><CR>
 nnoremap <C-F6>           mzyyp`zj<C-A>
 nnoremap <C-F7>           :call SelectIndent()<CR>
+nnoremap <C-F8>           :set wrap!<CR>
 inoremap <C-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-F9>           "=expand('%:p')<C-M>p
 nnoremap <C-S-F9>         :let @+=expand("%:p")<CR>
@@ -135,6 +137,9 @@ imap <S-Up>               <NOP>
 imap <S-Down>             <NOP>
 imap <S-PageUp>           <NOP>
 imap <S-PageDown>         <NOP>
+
+noremap <silent> <Up>     gk
+noremap <silent> <Down>   gj
 
 silent! call repeat#set("\<Plug>LionRight", v:count)
 silent! call repeat#set("\<Plug>VLionRight", v:count)
