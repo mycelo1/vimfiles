@@ -82,7 +82,7 @@ nnoremap <A-F7>           :set fileencoding=latin1<Bar>:set encoding=latin1<CR>
 nnoremap <A-F8>           :set fileencoding=utf-8<Bar>:set encoding=utf-8<CR>
 
 nnoremap <C-F4>           :bd<CR>
-nnoremap <C-F5>           :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <C-F5>           :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar>:nohlsearch<CR>
 nnoremap <C-F6>           mzyyp`zj<C-A>
 nnoremap <C-F7>           :call SelectIndent()<CR>
 nnoremap <C-F8>           :set wrap!<CR>
@@ -92,8 +92,8 @@ nnoremap <C-S-F9>         :let @+=expand("%:p")<CR>
 nnoremap <C-F10>          :let @z=@"<Bar>let @"=@+<Bar>let @+=@z<CR>
 nnoremap <C-S-F10>        :let @"=@0<CR>
 
-nnoremap <C-PageDown>     :bn<Bar><CR>
-nnoremap <C-PageUp>       :bp<Bar><CR>
+nnoremap <C-PageDown>     :bn<CR>
+nnoremap <C-PageUp>       :bp<CR>
 nnoremap <TAB>            W
 nnoremap <S-TAB>          B
 
