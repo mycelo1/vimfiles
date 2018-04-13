@@ -71,7 +71,25 @@ function! SelectIndent ()
   while (indent(line(".")+1) >= v_indent) || (nextnonblank(line(".")+1) > (line(".")+1))
     exe "normal j"
   endwhile
-endfun
+endfunction
+
+function! EndUp(isVisual)
+    if a:isVisual
+      normal! gv
+    endif
+    while line(".") > 1 && strlen(getline(line(".")-1)) >= col(".")
+      call cursor(line(".")-1, col("."))
+    endwhile
+endfunction
+
+function! EndDown(isVisual)
+    if a:isVisual
+      normal! gv
+    endif
+    while line(".") < line("$") && strlen(getline(line(".")+1)) >= col(".")
+      call cursor(line(".")+1, col("."))
+    endwhile
+endfunction
 
 autocmd CursorHoldI * stopinsert
 
@@ -86,9 +104,9 @@ nnoremap <C-F5>           :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar>:nohl
 nnoremap <C-F6>           mzyyp`zj<C-A>
 nnoremap <C-F7>           :call SelectIndent()<CR>
 nnoremap <C-F8>           :set wrap!<CR>
-inoremap <C-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-F9>           "=expand('%:p')<C-M>p
 nnoremap <C-S-F9>         :let @+=expand("%:p")<CR>
+inoremap <C-S-F9>         <C-R>=expand("%:p")<CR>
 nnoremap <C-F10>          :let @z=@"<Bar>let @"=@+<Bar>let @+=@z<CR>
 nnoremap <C-S-F10>        :let @"=@0<CR>
 
@@ -103,6 +121,11 @@ nnoremap <Leader>w        :e <C-R>=expand('%:p:h') . '/' . expand('<cword>')<CR>
 nnoremap <Leader>n        :enew<CR>
 nnoremap <Leader>s        :sav <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <Leader>r        :%s/\<<C-R>=expand('<cword>')<CR>\>//g<Left><Left>
+
+nnoremap <Leader>u        :call EndUp(0)<CR>
+vnoremap <Leader>u        :call EndUp(1)<CR>
+nnoremap <Leader>d        :call EndDown(0)<CR>
+vnoremap <Leader>d        :call EndDown(1)<CR>
 
 cnoremap %%               <C-R>=expand('%:h') . '/'<CR>
 cnoremap $$               <C-R>=expand('%:t')<CR>
