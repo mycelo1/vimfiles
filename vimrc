@@ -26,7 +26,7 @@ set relativenumber
 set scrolloff=2
 set shiftwidth=2
 set shortmess+=A
-set showbreak=»»
+set showbreak=>>
 set smartcase
 set smartindent
 set smarttab
