@@ -2,6 +2,7 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
+set autochdir
 set autoindent
 set backspace=
 set belloff=all
@@ -9,6 +10,7 @@ set breakindent
 set completeopt=
 set cpoptions+=n
 set expandtab
+set foldcolumn=1
 set guioptions+=b
 set guioptions-=T
 set guioptions-=m
@@ -20,6 +22,7 @@ set linebreak
 set list
 set listchars=tab:»\ ,nbsp:·,trail:·
 set mouse=c
+set nostartofline
 set nrformats=alpha,hex
 set number
 set relativenumber
@@ -32,6 +35,7 @@ set smartindent
 set smarttab
 set softtabstop=2
 set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+set tabstop=4
 set textwidth=0
 set virtualedit=all
 set wrap
@@ -62,17 +66,6 @@ else
   autocmd InsertLeave * set nocursorline
 endif
 
-function! SelectIndent ()
-  let v_indent=indent(line("."))
-  while (indent(line(".")-1) >= v_indent) || (prevnonblank(line(".")-1) < (line(".")-1))
-    exe "normal k"
-  endwhile
-  exe "normal V"
-  while (indent(line(".")+1) >= v_indent) || (nextnonblank(line(".")+1) > (line(".")+1))
-    exe "normal j"
-  endwhile
-endfunction
-
 function! EndUp(isVisual)
     if a:isVisual
       normal! gv
@@ -93,46 +86,65 @@ endfunction
 
 autocmd CursorHoldI * stopinsert
 
+nnoremap <F2>             :w<CR>
+nnoremap <F3>             :enew<CR>
+nnoremap <F9>             o<Esc>
+nnoremap <F10>            O<Esc>
+nnoremap <F11>            i<CR><Esc>
+nnoremap <F12>            i<Space><Esc>
+
+nnoremap <S-F2>           :sav <C-R>=expand('%:p:h') . '/'<CR>
+
 nnoremap <A-F2>           :set shiftwidth-=1<Bar>:set softtabstop-=1<Bar>:set softtabstop?<CR>
 nnoremap <A-F3>           :set shiftwidth+=1<Bar>:set softtabstop+=1<Bar>:set softtabstop?<CR>
+nnoremap <A-F4>           :retab<CR>
 nnoremap <A-F5>           :if exists("g:syntax_on")<Bar>syntax off<Bar>else<Bar>syntax enable<Bar>endif<CR>
 nnoremap <A-F7>           :set fileencoding=latin1<Bar>:set encoding=latin1<CR>
 nnoremap <A-F8>           :set fileencoding=utf-8<Bar>:set encoding=utf-8<CR>
 
+nnoremap <C-F2>           :wa<CR>
 nnoremap <C-F4>           :bd<CR>
 nnoremap <C-F5>           :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar>:nohlsearch<CR>
 nnoremap <C-F6>           mzyyp`zj<C-A>
-nnoremap <C-F7>           :call SelectIndent()<CR>
 nnoremap <C-F8>           :set wrap!<CR>
 nnoremap <C-F9>           "=expand('%:p')<C-M>p
 nnoremap <C-S-F9>         :let @+=expand("%:p")<CR>
 inoremap <C-S-F9>         <C-R>=expand("%:p")<CR>
 nnoremap <C-F10>          :let @z=@"<Bar>let @"=@+<Bar>let @+=@z<CR>
-nnoremap <C-S-F10>        :let @"=@0<CR>
 
+nnoremap <silent> <Esc>   :nohlsearch<CR>
 nnoremap <C-PageDown>     :bn<CR>
 nnoremap <C-PageUp>       :bp<CR>
-nnoremap <TAB>            W
-nnoremap <S-TAB>          B
+nnoremap <S-TAB>          <C-O>
 
-nnoremap <Leader><CR>     :nohlsearch<CR>
-nnoremap <Leader>e        :e <C-R>=expand('%:p:h') . '/'<CR>
-nnoremap <Leader>w        :e <C-R>=expand('%:p:h') . '/' . expand('<cword>')<CR>
-nnoremap <Leader>n        :enew<CR>
-nnoremap <Leader>s        :sav <C-R>=expand('%:p:h') . '/'<CR>
-nnoremap <Leader>r        :%s/\<<C-R>=expand('<cword>')<CR>\>//g<Left><Left>
+nnoremap <Leader>f        :e <C-R>='./**/' . expand('<cword>') . '*'<CR>
+nnoremap <Leader>1f       :e <C-R>='../**/' . expand('<cword>') . '*'<CR>
+nnoremap <Leader>2f       :e <C-R>='../../**/' . expand('<cword>') . '*'<CR>
+nnoremap <Leader>3f       :e <C-R>='../../../**/' . expand('<cword>') . '*'<CR>
+
+nnoremap <Leader>g        :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ./**/*' . '.' . expand('%:e')<CR>
+nnoremap <Leader>1g       :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../**/*' . '.' . expand('%:e')<CR>
+nnoremap <Leader>2g       :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../../**/*' . '.' . expand('%:e')<CR>
+nnoremap <Leader>3g       :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../../../**/*' . '.' . expand('%:e')<CR>
 
 nnoremap <Leader>u        :call EndUp(0)<CR>
 vnoremap <Leader>u        :call EndUp(1)<CR>
 nnoremap <Leader>d        :call EndDown(0)<CR>
 vnoremap <Leader>d        :call EndDown(1)<CR>
 
+vnoremap <Leader>pe       :!python -c "import sys, urllib.parse; print(urllib.parse.quote_plus(sys.stdin.read().strip()));"<CR>
+vnoremap <Leader>pd       :!python -c "import sys, urllib.parse; print(urllib.parse.unquote_plus(sys.stdin.read().strip()));"<CR>
+vnoremap <Leader>px       :!python -c "import sys, xml.dom.minidom; print(xml.dom.minidom.parse(sys.stdin).toprettyxml().strip());"<CR>
+vnoremap <Leader>pj       :!python -c "import sys, json; print(json.dumps(json.loads(sys.stdin.read()), indent='\t').strip());"<CR>
+
 cnoremap %%               <C-R>=expand('%:h') . '/'<CR>
 cnoremap $$               <C-R>=expand('%:t')<CR>
-nnoremap K                i<CR><Esc>
-nnoremap <M-k>            :help <C-R>=expand('<cword>')<CR><CR>
-nnoremap <M-i>            i<Space><Esc>
 vnoremap $                g_
+
+nnoremap [q               :cprev<CR>
+nnoremap ]q               :cnext<CR>
+nnoremap [Q               :cfirst<CR>
+nnoremap ]Q               :clast<CR>
 
 cmap     <S-Insert>       <C-R>+
 inoremap <S-Insert>       <C-R>+
@@ -140,6 +152,11 @@ nnoremap <C-S-Insert>     "+gp
 nnoremap <S-Insert>       "+gP
 vnoremap <C-Insert>       "+y
 vnoremap <S-Del>          "+x
+
+nnoremap <M-Up>           <C-Y>
+nnoremap <M-Down>         <C-E>
+nnoremap <M-Left>         zh
+nnoremap <M-Right>        zl
 
 imap <Up>                 <NOP>
 imap <Down>               <NOP>
@@ -161,9 +178,10 @@ imap <S-Down>             <NOP>
 imap <S-PageUp>           <NOP>
 imap <S-PageDown>         <NOP>
 
-noremap <silent> <Up>     gk
-noremap <silent> <Down>   gj
+nnoremap <silent> <Up>    gk
+nnoremap <silent> <Down>  gj
 
+" lion.vim
 silent! call repeat#set("\<Plug>LionRight", v:count)
 silent! call repeat#set("\<Plug>VLionRight", v:count)
 silent! call repeat#set("\<Plug>LionLeft", v:count)
