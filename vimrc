@@ -23,7 +23,7 @@ set list
 set listchars=tab:»\ ,nbsp:·,trail:·
 set mouse=c
 set nostartofline
-set nrformats=alpha,hex
+set nrformats=hex,bin
 set number
 set relativenumber
 set scrolloff=2
@@ -185,8 +185,21 @@ imap <S-PageDown>           <NOP>
 nnoremap <silent> <Up>      gk
 nnoremap <silent> <Down>    gj
 
-" lion.vim
+" vim-lion
+set runtimepath^=~/vimfiles/bundle/vim-lion
 silent! call repeat#set("\<Plug>LionRight", v:count)
 silent! call repeat#set("\<Plug>VLionRight", v:count)
 silent! call repeat#set("\<Plug>LionLeft", v:count)
 silent! call repeat#set("\<Plug>VLionLeft", v:count)
+
+" vim-buftabline
+set runtimepath^=~/vimfiles/bundle/vim-buftabline
+
+" vim-abolish
+set runtimepath^=~/vimfiles/bundle/vim-abolish
+
+" ReplaceWithRegister
+set runtimepath^=~/vimfiles/bundle/ReplaceWithRegister
+
+" vim-indent-object
+set runtimepath^=~/vimfiles/bundle/vim-indent-object
