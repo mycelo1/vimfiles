@@ -119,7 +119,11 @@ nnoremap <C-K>              i<CR><Esc>
 nnoremap <silent> <Esc>     :nohlsearch<CR>
 nnoremap <C-PageDown>       :bn<CR>
 nnoremap <C-PageUp>         :bp<CR>
-nnoremap <S-TAB>            <C-O>
+nnoremap <S-Tab>            <C-O>
+
+nnoremap <Leader>sa         :wa<CR>
+nnoremap <Leader>sv         :sav <C-R>=expand('%:p:h') . '/'<CR>
+nnoremap <Leader><Tab>      O<Esc>
 
 nnoremap <Leader>f          :e <C-R>='./**/' . expand('<cword>') . '*'<CR>
 nnoremap <Leader>1f         :e <C-R>='../**/' . expand('<cword>') . '*'<CR>
@@ -192,9 +196,6 @@ silent! call repeat#set("\<Plug>VLionRight", v:count)
 silent! call repeat#set("\<Plug>LionLeft", v:count)
 silent! call repeat#set("\<Plug>VLionLeft", v:count)
 
-" vim-buftabline
-set runtimepath^=~/vimfiles/bundle/vim-buftabline
-
 " vim-abolish
 set runtimepath^=~/vimfiles/bundle/vim-abolish
 
@@ -203,3 +204,7 @@ set runtimepath^=~/vimfiles/bundle/ReplaceWithRegister
 
 " vim-indent-object
 set runtimepath^=~/vimfiles/bundle/vim-indent-object
+
+" bufexplorer
+set runtimepath^=~/vimfiles/bundle/bufexplorer
+nnoremap <silent> <C-S-F4> :ToggleBufExplorer<CR>
