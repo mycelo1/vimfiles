@@ -46,25 +46,19 @@ elseif has('unix')
   set directory=/tmp//
 endif
 
-if has("gui_running")
-  if has('win32')
-    set guifont=DejaVu\ Sans\ Mono:h10
-  elseif has('unix')
-    set guifont=DejaVu\ Sans\ Mono\ 10
-  endif
-  behave xterm
-  set lines=40 columns=120
-  color desert
-  set cursorline
-  highlight CursorLine guibg=gray30
-  autocmd InsertEnter * highlight CursorLine gui=underline guibg=gray20
-  autocmd InsertLeave * highlight CursorLine gui=NONE guibg=gray30
-else
-  colors blue
-  set nocursorline
-  autocmd InsertEnter * set cursorline
-  autocmd InsertLeave * set nocursorline
+if has('win32')
+	set guifont=DejaVu\ Sans\ Mono:h10
+elseif has('unix')
+	set guifont=DejaVu\ Sans\ Mono\ 10
 endif
+
+behave xterm
+set lines=40 columns=120
+color desert
+set cursorline
+highlight CursorLine guibg=gray30
+autocmd InsertEnter * highlight CursorLine gui=underline guibg=gray20
+autocmd InsertLeave * highlight CursorLine gui=NONE guibg=gray30
 
 function! EndUp(isVisual)
     if a:isVisual
@@ -114,6 +108,7 @@ inoremap <C-S-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-S-F11>          :%y+<CR>
 
 nnoremap <C-_>              o<Esc>
+nnoremap <C-CR>             O<Esc>
 nnoremap <C-K>              i<CR><Esc>
 
 nnoremap <silent> <Esc>     :nohlsearch<CR>
