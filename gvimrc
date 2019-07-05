@@ -1,50 +1,4 @@
-set nocompatible
-filetype plugin indent on
 syntax on
-
-set autochdir
-set autoindent
-set backspace=
-set belloff=all
-set breakindent
-set completeopt=
-set cpoptions+=n
-set expandtab
-set foldcolumn=1
-set guioptions+=b
-set guioptions-=T
-set guioptions-=m
-set hidden
-set hlsearch
-set ignorecase
-set laststatus=2
-set linebreak
-set list
-set listchars=tab:»\ ,nbsp:·,trail:·
-set mouse=c
-set nostartofline
-set nrformats=hex,bin
-set number
-set relativenumber
-set scrolloff=2
-set shiftwidth=2
-set shortmess+=A
-set showbreak=>>
-set smartcase
-set smartindent
-set smarttab
-set softtabstop=2
-set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
-set tabstop=4
-set textwidth=0
-set virtualedit=all
-set wrap
-
-if has('win32')
-  set directory=%TEMP%//
-elseif has('unix')
-  set directory=/tmp//
-endif
 
 if has('win32')
 	set guifont=DejaVu\ Sans\ Mono:h10
@@ -52,7 +6,6 @@ elseif has('unix')
 	set guifont=DejaVu\ Sans\ Mono\ 10
 endif
 
-behave xterm
 set lines=40 columns=120
 color desert
 set cursorline
@@ -60,29 +13,10 @@ highlight CursorLine guibg=gray30
 autocmd InsertEnter * highlight CursorLine gui=underline guibg=gray20
 autocmd InsertLeave * highlight CursorLine gui=NONE guibg=gray30
 
-function! EndUp(isVisual)
-    if a:isVisual
-      normal! gv
-    endif
-    while line(".") > 1 && strlen(getline(line(".")-1)) >= col(".")
-      call cursor(line(".")-1, col("."))
-    endwhile
-endfunction
-
-function! EndDown(isVisual)
-    if a:isVisual
-      normal! gv
-    endif
-    while line(".") < line("$") && strlen(getline(line(".")+1)) >= col(".")
-      call cursor(line(".")+1, col("."))
-    endwhile
-endfunction
-
-autocmd CursorHoldI * stopinsert
-
 nnoremap <F2>               :w<CR>
 nnoremap <F3>               :enew<CR>
 nnoremap <F4>               :b<Space>
+nnoremap <F7>               ggVG<Space>
 
 nnoremap <C-F2>             :wa<CR>
 nnoremap <C-F4>             :bd<CR>
@@ -99,8 +33,10 @@ nnoremap <A-F2>             :set shiftwidth-=1<Bar>:set softtabstop-=1<Bar>:set 
 nnoremap <A-F3>             :set shiftwidth+=1<Bar>:set softtabstop+=1<Bar>:set softtabstop?<CR>
 nnoremap <A-F4>             :retab<CR>
 nnoremap <A-F5>             :if exists("g:syntax_on")<Bar>syntax off<Bar>else<Bar>syntax enable<Bar>endif<CR>
-nnoremap <A-F7>             :set fileencoding=latin1<Bar>:set encoding=latin1<CR>
-nnoremap <A-F8>             :set fileencoding=utf-8<Bar>:set encoding=utf-8<CR>
+nnoremap <A-F7>             :set fileencoding=latin1<CR>
+nnoremap <A-F8>             :set fileencoding=utf-8<CR>
+nnoremap <A-S-F7>           :set encoding=latin1<CR>
+nnoremap <A-S-F8>           :set encoding=utf-8<CR>
 
 nnoremap <C-S-F3>           :new<Bar>setlocal buftype=nofile<Bar>setlocal bufhidden=hide<Bar>setlocal noswapfile<CR>
 nnoremap <C-S-F9>           :let @+=expand("%:p")<CR>
@@ -184,22 +120,4 @@ imap <S-PageDown>           <NOP>
 nnoremap <silent> <Up>      gk
 nnoremap <silent> <Down>    gj
 
-" vim-lion
-set runtimepath^=~/vimfiles/bundle/vim-lion
-silent! call repeat#set("\<Plug>LionRight", v:count)
-silent! call repeat#set("\<Plug>VLionRight", v:count)
-silent! call repeat#set("\<Plug>LionLeft", v:count)
-silent! call repeat#set("\<Plug>VLionLeft", v:count)
-
-" vim-abolish
-set runtimepath^=~/vimfiles/bundle/vim-abolish
-
-" ReplaceWithRegister
-set runtimepath^=~/vimfiles/bundle/ReplaceWithRegister
-
-" vim-indent-object
-set runtimepath^=~/vimfiles/bundle/vim-indent-object
-
-" bufexplorer
-set runtimepath^=~/vimfiles/bundle/bufexplorer
-nnoremap <silent> <C-S-F4> :ToggleBufExplorer<CR>
+silent! vunmap <C-X>
