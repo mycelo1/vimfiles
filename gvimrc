@@ -1,4 +1,5 @@
 syntax on
+set listchars=tab:»\ ,nbsp:·,trail:·
 
 if has('win32')
 	set guifont=DejaVu\ Sans\ Mono:h10
@@ -35,10 +36,12 @@ nnoremap <A-F4>             :retab<CR>
 nnoremap <A-F5>             :if exists("g:syntax_on")<Bar>syntax off<Bar>else<Bar>syntax enable<Bar>endif<CR>
 nnoremap <A-F7>             :set fileencoding=latin1<CR>
 nnoremap <A-F8>             :set fileencoding=utf-8<CR>
+
 nnoremap <A-S-F7>           :set encoding=latin1<CR>
 nnoremap <A-S-F8>           :set encoding=utf-8<CR>
 
 nnoremap <C-S-F3>           :new<Bar>setlocal buftype=nofile<Bar>setlocal bufhidden=hide<Bar>setlocal noswapfile<CR>
+nnoremap <C-S-F5>           :%g/^\s*$/d<CR>
 nnoremap <C-S-F9>           :let @+=expand("%:p")<CR>
 inoremap <C-S-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-S-F11>          :%y+<CR>
@@ -47,43 +50,9 @@ nnoremap <C-_>              o<Esc>
 nnoremap <C-CR>             O<Esc>
 nnoremap <C-K>              i<CR><Esc>
 
-nnoremap <silent> <Esc>     :nohlsearch<CR>
 nnoremap <C-PageDown>       :bn<CR>
 nnoremap <C-PageUp>         :bp<CR>
 nnoremap <S-Tab>            <C-O>
-
-nnoremap <Leader>sa         :wa<CR>
-nnoremap <Leader>sv         :sav <C-R>=expand('%:p:h') . '/'<CR>
-nnoremap <Leader><Tab>      O<Esc>
-
-nnoremap <Leader>f          :e <C-R>='./**/' . expand('<cword>') . '*'<CR>
-nnoremap <Leader>1f         :e <C-R>='../**/' . expand('<cword>') . '*'<CR>
-nnoremap <Leader>2f         :e <C-R>='../../**/' . expand('<cword>') . '*'<CR>
-nnoremap <Leader>3f         :e <C-R>='../../../**/' . expand('<cword>') . '*'<CR>
-
-nnoremap <Leader>g          :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ./**/*' . '.' . expand('%:e')<CR>
-nnoremap <Leader>1g         :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../**/*' . '.' . expand('%:e')<CR>
-nnoremap <Leader>2g         :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../../**/*' . '.' . expand('%:e')<CR>
-nnoremap <Leader>3g         :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../../../**/*' . '.' . expand('%:e')<CR>
-
-vnoremap <Leader>pe         :!python -c "import sys, urllib.parse; print(urllib.parse.quote_plus(sys.stdin.read().strip()));"<CR>
-vnoremap <Leader>pd         :!python -c "import sys, urllib.parse; print(urllib.parse.unquote_plus(sys.stdin.read().strip()));"<CR>
-vnoremap <Leader>px         :!python -c "import sys, xml.dom.minidom; print(xml.dom.minidom.parse(sys.stdin).toprettyxml().strip());"<CR>
-vnoremap <Leader>pj         :!python -c "import sys, json; print(json.dumps(json.loads(sys.stdin.read()), indent='\t').strip());"<CR>
-
-cnoremap %%                 <C-R>=expand('%:h') . '/'<CR>
-cnoremap $$                 <C-R>=expand('%:t')<CR>
-vnoremap $                  g_
-
-nnoremap [l                 :call EndUp(0)<CR>
-vnoremap [l                 :call EndUp(1)<CR>
-nnoremap ]l                 :call EndDown(0)<CR>
-vnoremap ]l                 :call EndDown(1)<CR>
-
-nnoremap [q                 :cprev<CR>
-nnoremap ]q                 :cnext<CR>
-nnoremap [Q                 :cfirst<CR>
-nnoremap ]Q                 :clast<CR>
 
 cmap     <S-Insert>         <C-R>+
 inoremap <S-Insert>         <C-R>+
@@ -96,28 +65,3 @@ nnoremap <M-Up>             <C-Y>
 nnoremap <M-Down>           <C-E>
 nnoremap <M-Left>           zh
 nnoremap <M-Right>          zl
-
-imap <Up>                   <NOP>
-imap <Down>                 <NOP>
-imap <PageUp>               <NOP>
-imap <PageDown>             <NOP>
-
-imap <C-Up>                 <NOP>
-imap <C-Down>               <NOP>
-imap <C-PageUp>             <NOP>
-imap <C-PageDown>           <NOP>
-
-imap <M-Up>                 <NOP>
-imap <M-Down>               <NOP>
-imap <M-PageUp>             <NOP>
-imap <M-PageDown>           <NOP>
-
-imap <S-Up>                 <NOP>
-imap <S-Down>               <NOP>
-imap <S-PageUp>             <NOP>
-imap <S-PageDown>           <NOP>
-
-nnoremap <silent> <Up>      gk
-nnoremap <silent> <Down>    gj
-
-silent! vunmap <C-X>
