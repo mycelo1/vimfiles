@@ -10,9 +10,6 @@ set completeopt=
 set cpoptions+=n
 set expandtab
 set foldcolumn=1
-set guioptions+=b
-set guioptions-=T
-set guioptions-=m
 set hidden
 set hlsearch
 set ignorecase
@@ -73,7 +70,7 @@ nnoremap <Leader>5          :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar>:no
 nnoremap <Leader>6          mzyyp`zj<C-A>
 nnoremap <Leader>7          ggVG<Space>
 nnoremap <Leader>8          :set wrap!<CR>
-nnoremap <Leader>9          "=expand('%:p')<C-M>p
+inoremap <Leader>9          <C-R>=expand("%:p")<CR>
 
 nnoremap <Leader>c          :bd<CR>
 nnoremap <Leader>n          :n<CR>
@@ -89,6 +86,11 @@ nnoremap <Leader>-          o<Esc>
 
 nnoremap <Leader><PageUp>   :bp<CR>
 nnoremap <Leader><PageDown> :bn<CR>
+
+nnoremap <Leader>tn         :tabnew<CR>
+nnoremap <Leader>t[         :tabprevious<CR>
+nnoremap <Leader>t]         :tabnext<CR>
+nnoremap <Leader>tc         :tabclose<CR>
 
 nnoremap <Leader>f          :e <C-R>='./**/' . expand('<cword>') . '*'<CR>
 nnoremap <Leader>1f         :e <C-R>='../**/' . expand('<cword>') . '*'<CR>
@@ -123,8 +125,17 @@ nnoremap <silent> <Esc>     :nohlsearch<CR>
 nnoremap <silent> <Up>      gk
 nnoremap <silent> <Down>    gj
 
+nnoremap <C-W><PageUp>      :bp<CR>
+nnoremap <C-W><PageDown>    :bn<CR>
+
 tnoremap <PageUp>           :bp<CR>
 tnoremap <PageDown>         :bn<CR>
+
+nmap          <C-W>+        <C-W>+<SID>ws
+nmap          <C-W>-        <C-W>-<SID>ws
+nn    <script><SID>ws+      <C-W>+<SID>ws
+nn    <script><SID>ws-      <C-W>-<SID>ws
+nmap          <SID>ws       <Nop>
 
 imap <Up>                   <NOP>
 imap <Down>                 <NOP>

@@ -1,4 +1,9 @@
 syntax on
+
+set guioptions+=b
+set guioptions-=T
+set guioptions-=m
+set guioptions-=e
 set listchars=tab:»\ ,nbsp:·,trail:·
 
 if has('win32')
@@ -50,10 +55,12 @@ nnoremap <C-_>              o<Esc>
 nnoremap <C-CR>             O<Esc>
 nnoremap <C-K>              i<CR><Esc>
 
-nnoremap <C-PageDown>       :bn<CR>
 nnoremap <C-PageUp>         :bp<CR>
-nnoremap <S-Tab>            <C-O>
+nnoremap <C-PageDown>       :bn<CR>
+nnoremap <C-S-PageUp>       :tabprevious<CR>
+nnoremap <C-S-PageDown>     :tabnext<CR>
 
+nnoremap <S-Tab>            <C-O>
 cmap     <S-Insert>         <C-R>+
 inoremap <S-Insert>         <C-R>+
 nnoremap <C-S-Insert>       "+gp
