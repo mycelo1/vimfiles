@@ -1,3 +1,4 @@
+syntax on
 set nocompatible
 filetype plugin indent on
 
@@ -88,9 +89,8 @@ nnoremap <Leader><PageUp>   :bp<CR>
 nnoremap <Leader><PageDown> :bn<CR>
 
 nnoremap <Leader>tn         :tabnew<CR>
-nnoremap <Leader>t[         :tabprevious<CR>
-nnoremap <Leader>t]         :tabnext<CR>
 nnoremap <Leader>tc         :tabclose<CR>
+nnoremap <Leader>to         :tabonly<CR>
 
 nnoremap <Leader>f          :e <C-R>='./**/' . expand('<cword>') . '*'<CR>
 nnoremap <Leader>1f         :e <C-R>='../**/' . expand('<cword>') . '*'<CR>

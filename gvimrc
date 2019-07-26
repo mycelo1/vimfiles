@@ -1,5 +1,3 @@
-syntax on
-
 set guioptions+=b
 set guioptions-=T
 set guioptions-=m
