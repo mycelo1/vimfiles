@@ -49,6 +49,7 @@ nnoremap <C-S-F9>           :let @+=expand("%:p")<CR>
 inoremap <C-S-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-S-F11>          :%y+<CR>
 
+nnoremap <silent> <Esc>     :nohlsearch<CR>
 nnoremap <C-_>              o<Esc>
 nnoremap <C-CR>             O<Esc>
 nnoremap <C-K>              i<CR><Esc>

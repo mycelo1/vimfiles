@@ -121,7 +121,6 @@ nnoremap ]q                 :cnext<CR>
 nnoremap [Q                 :cfirst<CR>
 nnoremap ]Q                 :clast<CR>
 
-nnoremap <silent> <Esc>     :nohlsearch<CR>
 nnoremap <silent> <Up>      gk
 nnoremap <silent> <Down>    gj
 
