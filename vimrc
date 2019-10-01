@@ -45,21 +45,21 @@ endif
 behave xterm
 
 function! EndUp(isVisual)
-    if a:isVisual
-      normal! gv
-    endif
-    while line(".") > 1 && strlen(getline(line(".")-1)) >= col(".")
-      call cursor(line(".")-1, col("."))
-    endwhile
+  if a:isVisual
+    normal! gv
+  endif
+  while line(".") > 1 && strlen(getline(line(".")-1)) >= col(".")
+    call cursor(line(".")-1, col("."))
+  endwhile
 endfunction
 
 function! EndDown(isVisual)
-    if a:isVisual
-      normal! gv
-    endif
-    while line(".") < line("$") && strlen(getline(line(".")+1)) >= col(".")
-      call cursor(line(".")+1, col("."))
-    endwhile
+  if a:isVisual
+    normal! gv
+  endif
+  while line(".") < line("$") && strlen(getline(line(".")+1)) >= col(".")
+    call cursor(line(".")+1, col("."))
+  endwhile
 endfunction
 
 autocmd CursorHoldI * stopinsert
@@ -101,11 +101,6 @@ nnoremap <Leader>g          :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ./
 nnoremap <Leader>1g         :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../**/*' . '.' . expand('%:e')<CR>
 nnoremap <Leader>2g         :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../../**/*' . '.' . expand('%:e')<CR>
 nnoremap <Leader>3g         :vimgrep <C-R>='/\<' . expand('<cword>') . '\>\c/ ../../../**/*' . '.' . expand('%:e')<CR>
-
-vnoremap <Leader>pe         :!python -c "import sys, urllib.parse; print(urllib.parse.quote_plus(sys.stdin.read().strip()));"<CR>
-vnoremap <Leader>pd         :!python -c "import sys, urllib.parse; print(urllib.parse.unquote_plus(sys.stdin.read().strip()));"<CR>
-vnoremap <Leader>px         :!python -c "import sys, xml.dom.minidom; print(xml.dom.minidom.parse(sys.stdin).toprettyxml().strip());"<CR>
-vnoremap <Leader>pj         :!python -c "import sys, json; print(json.dumps(json.loads(sys.stdin.read()), indent='\t').strip());"<CR>
 
 cnoremap %%                 <C-R>=expand('%:h') . '/'<CR>
 cnoremap $$                 <C-R>=expand('%:t')<CR>
@@ -158,22 +153,25 @@ imap <S-PageDown>           <NOP>
 
 silent! vunmap <C-X>
 
+if has('win32')
+  set runtimepath^=~/vimfiles/bundle/vim-lion
+  set runtimepath^=~/vimfiles/bundle/vim-abolish
+  set runtimepath^=~/vimfiles/bundle/ReplaceWithRegister
+  set runtimepath^=~/vimfiles/bundle/vim-indent-object
+  set runtimepath^=~/vimfiles/bundle/bufexplorer
+elseif has('unix')
+  set runtimepath^=~/.vim/bundle/vim-lion
+  set runtimepath^=~/.vim/bundle/vim-abolish
+  set runtimepath^=~/.vim/bundle/ReplaceWithRegister
+  set runtimepath^=~/.vim/bundle/vim-indent-object
+  set runtimepath^=~/.vim/bundle/bufexplorer
+endif
+"
 " vim-lion
-set runtimepath^=~/vimfiles/bundle/vim-lion
 silent! call repeat#set("\<Plug>LionRight", v:count)
 silent! call repeat#set("\<Plug>VLionRight", v:count)
 silent! call repeat#set("\<Plug>LionLeft", v:count)
 silent! call repeat#set("\<Plug>VLionLeft", v:count)
 
-" vim-abolish
-set runtimepath^=~/vimfiles/bundle/vim-abolish
-
-" ReplaceWithRegister
-set runtimepath^=~/vimfiles/bundle/ReplaceWithRegister
-
-" vim-indent-object
-set runtimepath^=~/vimfiles/bundle/vim-indent-object
-
 " bufexplorer
-set runtimepath^=~/vimfiles/bundle/bufexplorer
-nnoremap <silent> <C-S-F4> :ToggleBufExplorer<CR>
+nnoremap <Leader><Leader>b  :ToggleBufExplorer<CR>
