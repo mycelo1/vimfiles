@@ -63,6 +63,7 @@ function! EndDown(isVisual)
 endfunction
 
 autocmd CursorHoldI * stopinsert
+autocmd FileType * setlocal indentexpr=
 
 nnoremap <Leader>2          :w<CR>
 nnoremap <Leader>3          :enew<CR>
@@ -76,6 +77,8 @@ inoremap <Leader>9          <C-R>=expand("%:p")<CR>
 nnoremap <Leader>c          :bd<CR>
 nnoremap <Leader>n          :n<CR>
 nnoremap <Leader>w          :w<CR>
+nnoremap <Leader>l          viwu<Esc>
+nnoremap <Leader>u          viwU<Esc>
 
 nnoremap <Leader>sa         :wa<CR>
 nnoremap <Leader>sv         :sav <C-R>=expand('%:p:h') . '/'<CR>
