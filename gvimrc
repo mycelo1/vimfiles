@@ -5,9 +5,9 @@ set guioptions-=e
 set listchars=tab:»\ ,nbsp:·,trail:·
 
 if has('win32')
-	set guifont=DejaVu\ Sans\ Mono:h10
+  set guifont=DejaVu\ Sans\ Mono:h10
 elseif has('unix')
-	set guifont=DejaVu\ Sans\ Mono\ 10
+  set guifont=DejaVu\ Sans\ Mono\ 10
 endif
 
 set lines=40 columns=120
@@ -49,6 +49,7 @@ nnoremap <C-S-F9>           :let @+=expand("%:p")<CR>
 inoremap <C-S-F9>           <C-R>=expand("%:p")<CR>
 nnoremap <C-S-F11>          :%y+<CR>
 
+nnoremap <silent> <Esc>     :nohlsearch<CR>
 nnoremap <C-_>              o<Esc>
 nnoremap <C-CR>             O<Esc>
 nnoremap <C-K>              i<CR><Esc>
@@ -70,3 +71,6 @@ nnoremap <M-Up>             <C-Y>
 nnoremap <M-Down>           <C-E>
 nnoremap <M-Left>           zh
 nnoremap <M-Right>          zl
+
+" bufexplorer
+nnoremap <C-S-F4>           :ToggleBufExplorer
