@@ -10,7 +10,10 @@ set breakindent
 set completeopt=
 set cpoptions+=n
 set expandtab
+set fileencoding=
+set fileencodings=ucs-bom,latin1,utf-8,default
 set foldcolumn=1
+set foldmethod=marker
 set hidden
 set hlsearch
 set ignorecase
@@ -70,11 +73,13 @@ nnoremap <Leader>3          :enew<CR>
 nnoremap <Leader>4          :b<Space>
 nnoremap <Leader>5          :let _s=@/<Bar>:%s/\m\s\+$//e<Bar>:let @/=_s<Bar>:nohlsearch<CR>
 nnoremap <Leader>6          mzyyp`zj<C-A>
-nnoremap <Leader>7          ggVG<Space>
+nnoremap <Leader>7          ggVG
 nnoremap <Leader>8          :set wrap!<CR>
 inoremap <Leader>9          <C-R>=expand("%:p")<CR>
 
-nnoremap <Leader>c          :bd<CR>
+nnoremap <Leader>d          :bd<CR>
+nnoremap <Leader>D          :bd!<CR>
+nnoremap <Leader><Leader>D  :%bw!<CR>
 nnoremap <Leader>n          :n<CR>
 nnoremap <Leader>w          :w<CR>
 nnoremap <Leader>l          viwu<Esc>
@@ -82,7 +87,13 @@ nnoremap <Leader>u          viwU<Esc>
 
 nnoremap <Leader>sa         :wa<CR>
 nnoremap <Leader>sv         :sav <C-R>=expand('%:p:h') . '/'<CR>
-nnoremap <Leader>st         :new<Bar>setlocal buftype=nofile<Bar>setlocal bufhidden=hide<Bar>setlocal noswapfile<CR>
+nnoremap <Leader><Leader>t  :new<Bar>setlocal buftype=nofile<Bar>setlocal bufhidden=hide<Bar>setlocal noswapfile<CR>
+
+nnoremap <Leader>el         :edit ++encoding=latin1<CR>
+nnoremap <Leader>eu         :edit ++encoding=utf-8<CR>
+nnoremap <Leader>sl         :write ++encoding=latin1<CR>:edit ++encoding=latin1<CR>
+nnoremap <Leader>su         :write ++encoding=utf-8<CR>:edit ++encoding=utf-8<CR>
+nnoremap <Leader>sb         :set bomb!<CR>
 
 nnoremap <Leader>k          i<CR><Esc>
 nnoremap <Leader><CR>       O<Esc>
@@ -94,6 +105,8 @@ nnoremap <Leader><PageDown> :bn<CR>
 nnoremap <Leader>tn         :tabnew<CR>
 nnoremap <Leader>tc         :tabclose<CR>
 nnoremap <Leader>to         :tabonly<CR>
+nnoremap <Leader>t]         :tabnext<CR>
+nnoremap <Leader>t[         :tabprevious<CR>
 
 nnoremap <Leader>f          :e <C-R>='./**/' . expand('<cword>') . '*'<CR>
 nnoremap <Leader>1f         :e <C-R>='../**/' . expand('<cword>') . '*'<CR>

@@ -37,11 +37,6 @@ nnoremap <A-F2>             :set shiftwidth-=1<Bar>:set softtabstop-=1<Bar>:set 
 nnoremap <A-F3>             :set shiftwidth+=1<Bar>:set softtabstop+=1<Bar>:set softtabstop?<CR>
 nnoremap <A-F4>             :retab<CR>
 nnoremap <A-F5>             :if exists("g:syntax_on")<Bar>syntax off<Bar>else<Bar>syntax enable<Bar>endif<CR>
-nnoremap <A-F7>             :set fileencoding=latin1<CR>
-nnoremap <A-F8>             :set fileencoding=utf-8<CR>
-
-nnoremap <A-S-F7>           :set encoding=latin1<CR>
-nnoremap <A-S-F8>           :set encoding=utf-8<CR>
 
 nnoremap <C-S-F3>           :new<Bar>setlocal buftype=nofile<Bar>setlocal bufhidden=hide<Bar>setlocal noswapfile<CR>
 nnoremap <C-S-F5>           :%g/^\s*$/d<CR>
@@ -73,4 +68,4 @@ nnoremap <M-Left>           zh
 nnoremap <M-Right>          zl
 
 " bufexplorer
-nnoremap <C-S-F4>           :ToggleBufExplorer
+nnoremap <C-S-F4>           :ToggleBufExplorer<CR>
