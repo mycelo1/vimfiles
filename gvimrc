@@ -5,7 +5,7 @@ set guioptions-=e
 set listchars=tab:»\ ,nbsp:·,trail:·
 
 if has('win32')
-  set guifont=DejaVu\ Sans\ Mono:h10
+  set guifont=Consolas:h11
 elseif has('unix')
   set guifont=DejaVu\ Sans\ Mono\ 10
 endif
