@@ -68,6 +68,7 @@ endfunction
 autocmd CursorHoldI * stopinsert
 autocmd FileType * setlocal indentexpr=
 
+nnoremap <Leader>1          :nohlsearch<CR>
 nnoremap <Leader>2          :w<CR>
 nnoremap <Leader>3          :enew<CR>
 nnoremap <Leader>4          :b<Space>
