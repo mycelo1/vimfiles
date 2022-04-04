@@ -11,7 +11,7 @@ set completeopt=
 set cpoptions+=n
 set expandtab
 set fileencoding=
-set fileencodings=ucs-bom,latin1,utf-8,default
+set fileencodings=ucs-bom,utf-8,default
 set foldcolumn=1
 set foldmethod=marker
 set hidden
@@ -35,6 +35,7 @@ set smarttab
 set softtabstop=2
 set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
 set tabstop=4
+set termencoding=utf8
 set textwidth=0
 set virtualedit=all
 set wrap
